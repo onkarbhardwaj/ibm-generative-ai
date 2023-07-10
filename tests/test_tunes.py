@@ -76,11 +76,11 @@ class TestTunes:
     # Test create tune function
 
     @patch("genai.services.RequestHandler.post")
-    def test_create_tune(self, mock_requests, params: CreateTuneParams):
+    def test_create_tune(self, mock_requests):
         mock_response = MagicMock(status_code=200)
         mock_response.json.return_value = SimpleResponse.tunes()
         mock_requests.return_value = mock_response
-
+        params = CreateTuneParams(method_id="mpt", task_id="classification")
         g = self.service_router.create_tune(params=params)
         assert g == mock_response
 
